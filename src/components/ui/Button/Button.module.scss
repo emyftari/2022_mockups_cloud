@@ -1,0 +1,26 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  border-radius: 5px;
+  background: linear-gradient(100deg, #00e2ff 0%, #00ffd8 100%);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary {
+  position: relative;
+  padding: 1rem 5rem;
+
+  svg {
+    position: absolute;
+    left: 20px;
+  }
+}
+
+.circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}

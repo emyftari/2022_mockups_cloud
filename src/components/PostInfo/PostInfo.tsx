@@ -1,15 +1,27 @@
 import styles from './PostInfo.module.scss'
 
-import Container from 'components/Container'
+import Container from 'components/ui/Container'
+import Icon, { Types } from 'components/ui/Icon'
 
 const PostInfo = () => {
   return (
     <div>
       <div className={styles.action__bar}>
         <Container>
-          <div>Adobe Photoshop</div>
-          <button>Report</button>
-          <button>Donate</button>
+          <div className={styles.application}>
+            <Icon type={Types.photoshop} />
+            <h5>
+              Adobe <br /> Photoshop
+            </h5>
+          </div>
+          <button>
+            <Icon type={Types.warning} />
+            REPORT
+          </button>
+          <button>
+            <Icon type={Types.coffee} />
+            DONATE
+          </button>
         </Container>
       </div>
       <Container className={styles.info}>
