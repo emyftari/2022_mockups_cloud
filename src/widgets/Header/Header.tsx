@@ -2,19 +2,41 @@ import { FC } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import clsx from 'clsx'
+import toast from 'react-hot-toast'
+import debounce from 'lodash.debounce'
 
 import styles from './Header.module.scss'
 
+import { useAppDispatch } from 'app/hooks'
+import { setSearch, setSubcategory } from 'app/features/filterSlice'
+
+import { client } from 'utils/client'
+
+import CustomImage from 'components/ui/CustomImage'
 import Button, { Types as ButtonTypes } from 'components/ui/Button'
 import Icon, { Types } from 'components/ui/Icon'
 
 interface IHeader {
   home?: boolean
-  post?: boolean
-  download?: boolean
+  post?: any
+  download?: any
+  subcategories?: any
 }
 
-const Header: FC<IHeader> = ({ home, post, download }) => {
+const Header: FC<IHeader> = ({ home, post, download, subcategories }) => {
+  const dispatch = useAppDispatch()
+
+  const handleChange = (e: any) => dispatch(setSearch(e.target.value))
+
+  const vote = async (vote: 1 | 0) => {
+    try {
+      await client.post(`/posts/${download.id}/vote`, { vote, domain: 4 })
+      toast.success('Post voted!')
+    } catch (error: any) {
+      toast.error(error.response.data.message)
+    }
+  }
+
   return (
     <header
       className={clsx(
@@ -26,16 +48,25 @@ const Header: FC<IHeader> = ({ home, post, download }) => {
     >
       {(home || post) && (
         <div className={styles.header__top}>
-          <div>
-            <Icon type={Types.logo} />
-          </div>
+          <Link href="/">
+            <div>
+              <Icon type={Types.logo} />
+            </div>
+          </Link>
           {post && (
             <nav className={styles.navigation}>
               <ul>
-                <li>All Mockups</li>
-                <li>Apparel & Sport</li>
-                <li>Device & Technology</li>
-                <li>Packgaging & Branding</li>
+                <li onClick={() => dispatch(setSubcategory(null))}>
+                  All Mockups
+                </li>
+                {subcategories.map((item: any) => (
+                  <li
+                    onClick={() => dispatch(setSubcategory(item.id))}
+                    key={item.id}
+                  >
+                    {item.title}
+                  </li>
+                ))}
               </ul>
             </nav>
           )}
@@ -60,6 +91,7 @@ const Header: FC<IHeader> = ({ home, post, download }) => {
           <div className={styles.header__nav}>
             <fieldset className={styles.header__nav__search}>
               <input
+                onChange={debounce(handleChange, 500)}
                 type="text"
                 placeholder="Type what you are looking for..."
               />
@@ -67,10 +99,17 @@ const Header: FC<IHeader> = ({ home, post, download }) => {
             </fieldset>
             <nav className={styles.navigation}>
               <ul>
-                <li>All Mockups</li>
-                <li>Apparel & Sport</li>
-                <li>Device & Technology</li>
-                <li>Packgaging & Branding</li>
+                <li onClick={() => dispatch(setSubcategory(null))}>
+                  All Mockups
+                </li>
+                {subcategories.map((item: any) => (
+                  <li
+                    onClick={() => dispatch(setSubcategory(item.id))}
+                    key={item.id}
+                  >
+                    {item.title}
+                  </li>
+                ))}
               </ul>
             </nav>
           </div>
@@ -81,13 +120,7 @@ const Header: FC<IHeader> = ({ home, post, download }) => {
       )}
       {post && (
         <div className={styles.post}>
-          <Image
-            src="/images/single-post.png"
-            width={680}
-            height={400}
-            alt=""
-            objectFit="cover"
-          />
+          <CustomImage src={post.post_images} width={680} height={400} alt="" />
           <div>
             <Image
               src="/images/ad-2.png"
@@ -124,29 +157,35 @@ const Header: FC<IHeader> = ({ home, post, download }) => {
                 </a>
               </Link>
             </div>
-            <Button>
-              <Icon type={Types.download} />
-              DOWNLOAD
-            </Button>
+            <Link href={`/${post.id}/download`}>
+              <div>
+                <Button>
+                  <Icon type={Types.download} />
+                  DOWNLOAD
+                </Button>
+              </div>
+            </Link>
           </div>
         </div>
       )}
       {download && (
         <>
-          <div className={styles.icon}>
-            <Icon type={Types.logo} />
-          </div>
+          <Link href="/">
+            <div className={styles.icon}>
+              <Icon type={Types.logo} />
+            </div>
+          </Link>
           <div className={styles.download__content}>
-            <h2>Hanging Frame 24×36 Poster Mockup</h2>
+            <h2>{download.title}</h2>
             <div className={styles.actions}>
               <div>
                 <h4>WORKS THIS LINK?</h4>
                 <h3>VOTE NOW</h3>
               </div>
-              <button>
+              <button onClick={() => vote(1)}>
                 <Icon type={Types.arrowUp} />
               </button>
-              <button>
+              <button onClick={() => vote(0)}>
                 <Icon type={Types.arrowDown} />
               </button>
               <button>

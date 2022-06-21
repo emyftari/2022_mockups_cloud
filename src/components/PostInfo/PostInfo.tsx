@@ -1,18 +1,24 @@
+import { FC } from 'react'
+
 import styles from './PostInfo.module.scss'
 
 import Container from 'components/ui/Container'
 import Icon, { Types } from 'components/ui/Icon'
 
-const PostInfo = () => {
+const PostInfo: FC<any> = ({ app, title }) => {
+  // const getInitials = (str) =>
+  //   str
+  //     .split(' ')
+  //     .map((word) => word[0])
+  //     .join('')
+
   return (
     <div>
       <div className={styles.action__bar}>
         <Container>
           <div className={styles.application}>
             <Icon type={Types.photoshop} />
-            <h5>
-              Adobe <br /> Photoshop
-            </h5>
+            <h5>{app.name}</h5>
           </div>
           <button>
             <Icon type={Types.warning} />
@@ -25,7 +31,7 @@ const PostInfo = () => {
         </Container>
       </div>
       <Container className={styles.info}>
-        <h1>Download Free DL Flyer PSD Mockup Vol-02</h1>
+        <h1>{title}</h1>
         <p>
           Today’s freebie is a Photorealistic DL flyer psd mockup vol-02 comes
           in high resolution with two flyers in display at once. you’ll be able

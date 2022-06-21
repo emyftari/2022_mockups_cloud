@@ -3,15 +3,15 @@ import Card from 'components/Card'
 
 import styles from './RelatedPosts.module.scss'
 
-const RelatedPosts = () => {
+const RelatedPosts = ({ posts }: any) => {
   return (
     <section className={styles.relatedPosts}>
       <Container>
         <h5>Related Posts</h5>
       </Container>
       <Container>
-        {data.map((item, i) => (
-          <Card key={i} {...item} />
+        {posts.map((post: any) => (
+          <Card key={post.id} {...post} />
         ))}
       </Container>
     </section>

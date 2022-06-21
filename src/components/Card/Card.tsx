@@ -1,20 +1,23 @@
 import { FC } from 'react'
+import Link from 'next/link'
 
 import styles from './Card.module.scss'
 
-import Image from 'next/image'
-import Link from 'next/link'
+import CustomImage from 'components/ui/CustomImage'
 
 interface ICard {
+  id: number
   title: string
-  image: string
+  post_images: any
 }
 
-const Card: FC<ICard> = ({ title, image }) => {
+const Card: FC<ICard> = ({ id, title, post_images }) => {
   return (
-    <Link href="/post">
+    <Link href={`/${id}`}>
       <div className={styles.card}>
-        <Image src={image} width={285} height={180} alt="" />
+        <div className={styles.card__image}>
+          <CustomImage src={post_images} alt="" layout="fill" />
+        </div>
         <h3>{title}</h3>
       </div>
     </Link>
