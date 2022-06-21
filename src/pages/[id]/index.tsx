@@ -44,6 +44,7 @@ export const getStaticProps = async ({ params: { id } }: any) => {
       post: currentPost[0],
       subcategories: subcategories.data.data[0],
     },
+    revalidate: 30,
   }
 }
 

@@ -26,6 +26,7 @@ export const getStaticProps = async ({ params: { id } }: any) => {
 
   return {
     props: { post: post[0] },
+    revalidate: 30,
   }
 }
 
