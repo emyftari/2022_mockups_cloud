@@ -1,17 +1,19 @@
 import { FC } from 'react'
 
+import {
+  FacebookShareButton,
+  VKShareButton,
+  TwitterShareButton,
+  LinkedinShareButton,
+  PinterestShareButton,
+} from 'next-share'
+
 import styles from './PostInfo.module.scss'
 
 import Container from 'components/ui/Container'
 import Icon, { Types } from 'components/ui/Icon'
 
 const PostInfo: FC<any> = ({ app, title }) => {
-  // const getInitials = (str) =>
-  //   str
-  //     .split(' ')
-  //     .map((word) => word[0])
-  //     .join('')
-
   return (
     <div>
       <div className={styles.action__bar}>
@@ -19,6 +21,23 @@ const PostInfo: FC<any> = ({ app, title }) => {
           <div className={styles.application}>
             <Icon type={Types.photoshop} />
             <h5>{app.name}</h5>
+          </div>
+          <div className={styles.share}>
+            <FacebookShareButton>
+              <Icon type={Types.facebook} />
+            </FacebookShareButton>
+            <TwitterShareButton>
+              <Icon type={Types.twitter} />
+            </TwitterShareButton>
+            <LinkedinShareButton>
+              <Icon type={Types.linkedin} />
+            </LinkedinShareButton>
+            <VKShareButton>
+              <Icon type={Types.vk} />
+            </VKShareButton>
+            <PinterestShareButton>
+              <Icon type={Types.pinterest} />
+            </PinterestShareButton>
           </div>
           <button>
             <Icon type={Types.warning} />

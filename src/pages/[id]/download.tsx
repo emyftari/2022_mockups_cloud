@@ -4,7 +4,7 @@ import { Toaster } from 'react-hot-toast'
 
 import { client } from 'utils/client'
 
-import Header from 'widgets/Header'
+import HeaderDownload from 'widgets/HeaderDownload'
 
 const Download: FC<any> = ({ post }) => {
   return (
@@ -12,7 +12,7 @@ const Download: FC<any> = ({ post }) => {
       <Head>
         <title>Mockups Cloud - {post.title}</title>
       </Head>
-      <Header download={post} />
+      <HeaderDownload post={post} />
       <Toaster />
     </>
   )

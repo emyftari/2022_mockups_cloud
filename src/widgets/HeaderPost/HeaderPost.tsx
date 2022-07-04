@@ -1,29 +1,27 @@
 import { FC } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
+import clsx from 'clsx'
+
+import styles from './HeaderPost.module.scss'
 
 import { useAppDispatch } from 'app/hooks'
 import { setSubcategory } from 'app/features/filterSlice'
 
-import styles from './Header.module.scss'
-
-import Container from 'components/ui/Container'
-import Search from 'components/Search'
 import Button, { Types as ButtonTypes } from 'components/ui/Button'
 import Icon, { Types } from 'components/ui/Icon'
+import Container from 'components/ui/Container'
+import Single from 'components/Single/Single'
 
 interface IHeader {
-  home?: boolean
   post?: any
-  download?: any
   subcategories?: any
 }
 
-const Header: FC<IHeader> = ({ subcategories }) => {
+const Header: FC<IHeader> = ({ post, subcategories }) => {
   const dispatch = useAppDispatch()
 
   return (
-    <header className={styles.header}>
+    <header className={clsx(styles.header, styles.header__post)}>
       <Container wide>
         <div className={styles.header__top}>
           <Link href="/">
@@ -31,6 +29,21 @@ const Header: FC<IHeader> = ({ subcategories }) => {
               <Icon type={Types.logo} />
             </div>
           </Link>
+          <nav className={styles.navigation}>
+            <ul>
+              <li onClick={() => dispatch(setSubcategory(null))}>
+                All Mockups
+              </li>
+              {subcategories.map((item: any) => (
+                <li
+                  onClick={() => dispatch(setSubcategory(item.id))}
+                  key={item.id}
+                >
+                  {item.title}
+                </li>
+              ))}
+            </ul>
+          </nav>
           <div className={styles.header__top__socials}>
             <h5>Donate</h5>
             <hr />
@@ -46,24 +59,8 @@ const Header: FC<IHeader> = ({ subcategories }) => {
             </Button>
           </div>
         </div>
-        <div className={styles.header__nav}>
-          <Search />
-          <ul>
-            <li onClick={() => dispatch(setSubcategory(null))}>All Mockups</li>
-            {subcategories.map((item: any) => (
-              <li
-                onClick={() => dispatch(setSubcategory(item.id))}
-                key={item.id}
-              >
-                {item.title}
-              </li>
-            ))}
-          </ul>
-        </div>
       </Container>
-      <div className={styles.header__ad}>
-        <Image src="/images/ad.png" width={970} height={90} alt="" />
-      </div>
+      <Single post={post} />
     </header>
   )
 }

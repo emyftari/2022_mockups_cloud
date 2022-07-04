@@ -1,0 +1,34 @@
+@import '../../styles/variables.scss';
+
+.search {
+  max-width: 700px;
+  display: flex;
+  height: 3.75rem;
+  border-radius: 5px;
+  backdrop-filter: blur(12px);
+  margin: 0 auto 2rem auto;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 0 25px;
+
+  input {
+    flex-grow: 1;
+    height: 100%;
+    background-color: transparent;
+    font-size: 14px;
+    color: #fff;
+    outline: none;
+
+    &::placeholder {
+      color: #fff;
+    }
+  }
+}
+
+@media screen and (max-width: $md) {
+  .search {
+    max-width: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+}

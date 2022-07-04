@@ -14,12 +14,12 @@ interface ICard {
 const Card: FC<ICard> = ({ id, title, post_images }) => {
   return (
     <Link href={`/${id}`}>
-      <div className={styles.card}>
+      <a className={styles.card}>
         <div className={styles.card__image}>
           <CustomImage src={post_images} alt="" layout="fill" />
         </div>
         <h3>{title}</h3>
-      </div>
+      </a>
     </Link>
   )
 }

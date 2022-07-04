@@ -5,7 +5,7 @@ import { client } from 'utils/client'
 
 import { IProps } from 'interfaces/props'
 
-import Header from 'widgets/Header'
+import HeaderPost from 'widgets/HeaderPost'
 import PostInfo from 'components/PostInfo'
 import RelatedPosts from 'components/RelatedPosts'
 
@@ -15,7 +15,7 @@ const Post: FC<IProps> = ({ post, subcategories, relatedPosts }) => {
       <Head>
         <title>Mockups Cloud - {post.title}</title>
       </Head>
-      <Header post={post} subcategories={subcategories} />
+      <HeaderPost post={post} subcategories={subcategories} />
       <PostInfo app={post.application} title={post.title} />
       <RelatedPosts posts={relatedPosts} />
     </>

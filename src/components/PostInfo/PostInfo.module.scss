@@ -1,3 +1,5 @@
+@import '../../styles/variables.scss';
+
 .action__bar {
   height: 60px;
   border-bottom: 1px solid #dfe7f0;
@@ -54,5 +56,31 @@
     margin-bottom: 35px;
     line-height: 1.5;
     font-weight: 400;
+  }
+}
+
+.share {
+  display: none;
+}
+
+@media screen and (max-width: $md) {
+  .action__bar {
+    .application {
+      display: none;
+    }
+
+    .share {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+
+      svg {
+        width: 26px;
+      }
+    }
+  }
+
+  .info {
+    display: none;
   }
 }
