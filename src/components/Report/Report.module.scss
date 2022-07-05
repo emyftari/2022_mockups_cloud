@@ -1,0 +1,44 @@
+.report {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  margin: auto;
+  padding: 3rem;
+  background-color: #fff;
+  border-radius: 10px;
+
+  .close {
+    position: absolute;
+    display: grid;
+    top: 2rem;
+    right: 2rem;
+    cursor: pointer;
+  }
+
+  h1 {
+    margin-bottom: 2rem;
+  }
+
+  form {
+    display: grid;
+    gap: 0.8rem;
+
+    label {
+      display: flex;
+      align-items: center;
+
+      &:last-of-type {
+        margin-bottom: 2rem;
+      }
+
+      input {
+        margin-right: 0.5rem;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+  }
+}

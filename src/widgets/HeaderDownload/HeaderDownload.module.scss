@@ -63,6 +63,16 @@
       cursor: pointer;
       color: #fff;
 
+      &[data-active='true'] {
+        background-color: lighten(#021e3c, 10%);
+
+        svg {
+          path {
+            fill: #2bfeda;
+          }
+        }
+      }
+
       &:nth-of-type(1) {
         border-left: 1px solid rgba(255, 255, 255, 0.15);
       }

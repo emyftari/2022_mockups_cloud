@@ -1,7 +1,12 @@
-import { FC } from 'react'
+import { FC, useState, useEffect } from 'react'
 import Link from 'next/link'
-import clsx from 'clsx'
 import toast from 'react-hot-toast'
+import {
+  setCookies,
+  getCookie,
+  checkCookies,
+  CookieValueTypes,
+} from 'cookies-next'
 
 import { client } from 'utils/client'
 
@@ -17,15 +22,31 @@ interface IHeader {
   subcategories?: any
 }
 
-const Header: FC<IHeader> = ({ post }) => {
+const Header: FC<IHeader> = ({ post: { id, title } }) => {
+  const [revealShare, setRevealShare] = useState(false)
+  const [upDown, setUpDown] = useState<0 | 1 | null | CookieValueTypes>(null)
   const vote = async (vote: 1 | 0) => {
     try {
-      await client.post(`/posts/${post.id}/vote`, { vote, domain: 4 })
+      await client.post(`/posts/${id}/vote`, { vote, domain: 4 })
+      setUpDown(vote)
+      setCookies(`post-${id}`, id)
+      setCookies(`vote-${id}`, vote)
       toast.success('Post voted!')
     } catch (error: any) {
       toast.error(error.response.data.message)
     }
   }
+
+  useEffect(() => {
+    if (checkCookies(`post-${id}`) && checkCookies(`vote-${id}`)) {
+      const cookieId: any = getCookie(`post-${id}`)
+
+      if (parseInt(cookieId) === id) {
+        setUpDown(getCookie(`vote-${id}`))
+      }
+    }
+    // eslint-disable-next-line
+  }, [upDown])
 
   return (
     <header className={styles.header}>
@@ -37,17 +58,17 @@ const Header: FC<IHeader> = ({ post }) => {
         </Link>
         <div className={styles.header__title}>
           <span>Ps</span>
-          <h2>{post.title}</h2>
+          <h2>{title}</h2>
         </div>
         <div className={styles.header__right}>
           <div className={styles.vote}>
             <h4>WORKS THIS LINK?</h4>
             <h3>VOTE NOW</h3>
           </div>
-          <button onClick={() => vote(1)}>
+          <button data-active={upDown === '1'} onClick={() => vote(1)}>
             <Icon type={Types.arrowUp} />
           </button>
-          <button onClick={() => vote(0)}>
+          <button data-active={upDown === '0'} onClick={() => vote(0)}>
             <Icon type={Types.arrowDown} />
           </button>
           <button>

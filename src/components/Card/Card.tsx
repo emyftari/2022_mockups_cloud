@@ -9,11 +9,12 @@ interface ICard {
   id: number
   title: string
   post_images: any
+  short_url: string
 }
 
-const Card: FC<ICard> = ({ id, title, post_images }) => {
+const Card: FC<ICard> = ({ title, post_images, short_url }) => {
   return (
-    <Link href={`/${id}`}>
+    <Link href={`/${short_url}`}>
       <a className={styles.card}>
         <div className={styles.card__image}>
           <CustomImage src={post_images} alt="" layout="fill" />

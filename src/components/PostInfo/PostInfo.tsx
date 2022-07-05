@@ -1,5 +1,4 @@
-import { FC } from 'react'
-
+import { FC, useRef } from 'react'
 import {
   FacebookShareButton,
   VKShareButton,
@@ -12,34 +11,56 @@ import styles from './PostInfo.module.scss'
 
 import Container from 'components/ui/Container'
 import Icon, { Types } from 'components/ui/Icon'
+import Modal from 'components/ui/Modal'
+import Report from 'components/Report'
 
-const PostInfo: FC<any> = ({ app, title }) => {
+const PostInfo: FC<any> = ({
+  application,
+  title,
+  description,
+  short_url,
+  post_images,
+  id,
+}) => {
+  const modalRef = useRef<any>()
+
   return (
     <div>
       <div className={styles.action__bar}>
         <Container>
           <div className={styles.application}>
             <Icon type={Types.photoshop} />
-            <h5>{app.name}</h5>
+            <h5>{application.name}</h5>
           </div>
           <div className={styles.share}>
-            <FacebookShareButton>
+            <FacebookShareButton
+              url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${short_url}`}
+            >
               <Icon type={Types.facebook} />
             </FacebookShareButton>
-            <TwitterShareButton>
+            <TwitterShareButton
+              url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${short_url}`}
+            >
               <Icon type={Types.twitter} />
             </TwitterShareButton>
-            <LinkedinShareButton>
+            <LinkedinShareButton
+              url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${short_url}`}
+            >
               <Icon type={Types.linkedin} />
             </LinkedinShareButton>
-            <VKShareButton>
+            <VKShareButton
+              url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${short_url}`}
+            >
               <Icon type={Types.vk} />
             </VKShareButton>
-            <PinterestShareButton>
+            <PinterestShareButton
+              url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${short_url}`}
+              media={post_images[0].preview}
+            >
               <Icon type={Types.pinterest} />
             </PinterestShareButton>
           </div>
-          <button>
+          <button onClick={() => modalRef.current.open()}>
             <Icon type={Types.warning} />
             REPORT
           </button>
@@ -51,14 +72,11 @@ const PostInfo: FC<any> = ({ app, title }) => {
       </div>
       <Container className={styles.info}>
         <h1>{title}</h1>
-        <p>
-          Today’s freebie is a Photorealistic DL flyer psd mockup vol-02 comes
-          in high resolution with two flyers in display at once. you’ll be able
-          to share or showcase various designs like new offers, sales, special
-          events, branding designs, and many others or simply make your design
-          look eye popping project.
-        </p>
+        {description && <p>{description}</p>}
       </Container>
+      <Modal ref={modalRef}>
+        <Report close={() => modalRef.current.close()} id={id} />
+      </Modal>
     </div>
   )
 }

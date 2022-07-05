@@ -1,6 +1,15 @@
 import { FC } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  LinkedinShareButton,
+  VKShareButton,
+  PinterestShareButton,
+} from 'next-share'
+
+import { client } from 'utils/client'
 
 import styles from './Single.module.scss'
 
@@ -8,9 +17,12 @@ import Container from 'components/ui/Container'
 import CustomImage from 'components/ui/CustomImage'
 import Button from 'components/ui/Button'
 import Icon, { Types } from 'components/ui/Icon'
-import PostInfo from 'components/PostInfo'
 
 const Single: FC<any> = ({ post }) => {
+  const handleDownload = async () => {
+    await client.post(`posts/${post.id}/download`, { domain: 4 })
+  }
+
   return (
     <Container>
       <div className={styles.post}>
@@ -42,34 +54,36 @@ const Single: FC<any> = ({ post }) => {
           </div>
           <div className={styles.socials}>
             <h2>SHARE</h2>
-            <Link href="/">
-              <a>
-                <Icon type={Types.facebook} />
-              </a>
-            </Link>
-            <Link href="/">
-              <a>
-                <Icon type={Types.twitter} />
-              </a>
-            </Link>
-            <Link href="/">
-              <a>
-                <Icon type={Types.linkedin} />
-              </a>
-            </Link>
-            <Link href="/">
-              <a>
-                <Icon type={Types.vk} />
-              </a>
-            </Link>
-            <Link href="/">
-              <a>
-                <Icon type={Types.pinterest} />
-              </a>
-            </Link>
+
+            <FacebookShareButton
+              url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${post.short_url}`}
+            >
+              <Icon type={Types.facebook} />
+            </FacebookShareButton>
+            <TwitterShareButton
+              url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${post.short_url}`}
+            >
+              <Icon type={Types.twitter} />
+            </TwitterShareButton>
+            <LinkedinShareButton
+              url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${post.short_url}`}
+            >
+              <Icon type={Types.linkedin} />
+            </LinkedinShareButton>
+            <VKShareButton
+              url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${post.short_url}`}
+            >
+              <Icon type={Types.vk} />
+            </VKShareButton>
+            <PinterestShareButton
+              url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${post.short_url}`}
+              media={post.post_images[0].preview}
+            >
+              <Icon type={Types.pinterest} />
+            </PinterestShareButton>
           </div>
-          <Link href={`/${post.id}/download`}>
-            <div className={styles.download}>
+          <Link href={`/${post.short_url}/download`}>
+            <div onClick={handleDownload} className={styles.download}>
               <Button>
                 <Icon type={Types.download} />
                 DOWNLOAD

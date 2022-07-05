@@ -10,8 +10,12 @@ const filterSlice = createSlice({
     setSubcategory: (state, action) => {
       state.subcategory = action.payload
     },
+    clearFilter: (state) => {
+      state.searchTerm = ''
+      state.subcategory = null
+    },
   },
 })
 
 export default filterSlice.reducer
-export const { setSearch, setSubcategory } = filterSlice.actions
+export const { setSearch, setSubcategory, clearFilter } = filterSlice.actions
