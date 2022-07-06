@@ -4,7 +4,7 @@ import clsx from 'clsx'
 
 import styles from './HeaderPost.module.scss'
 
-import { useAppDispatch } from 'app/hooks'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { setSubcategory } from 'app/features/filterSlice'
 
 import Button, { Types as ButtonTypes } from 'components/ui/Button'
@@ -19,6 +19,7 @@ interface IHeader {
 
 const Header: FC<IHeader> = ({ post, subcategories }) => {
   const dispatch = useAppDispatch()
+  const subcategory = useAppSelector((state) => state.filter.subcategory)
 
   return (
     <header className={clsx(styles.header, styles.header__post)}>
@@ -31,11 +32,15 @@ const Header: FC<IHeader> = ({ post, subcategories }) => {
           </Link>
           <nav className={styles.navigation}>
             <ul>
-              <li onClick={() => dispatch(setSubcategory(null))}>
+              <li
+                data-selected={subcategory === null || subcategory === -1}
+                onClick={() => dispatch(setSubcategory(null))}
+              >
                 All Mockups
               </li>
               {subcategories.map((item: any) => (
                 <li
+                  data-selected={subcategory === item.id}
                   onClick={() => dispatch(setSubcategory(item.id))}
                   key={item.id}
                 >

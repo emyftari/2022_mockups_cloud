@@ -48,6 +48,15 @@
       li {
         font-size: 12px;
         cursor: pointer;
+        transition: all 250ms ease-in-out;
+
+        &:hover {
+          color: #2bfeda;
+        }
+
+        &[data-selected='true'] {
+          color: #2bfeda;
+        }
       }
     }
   }

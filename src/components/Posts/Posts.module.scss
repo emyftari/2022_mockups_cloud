@@ -6,7 +6,6 @@
   &__container {
     display: grid;
     grid-template-columns: repeat(auto-fit, 280px);
-    justify-content: center;
     gap: 30px;
 
     @media screen and (max-width: $md) {

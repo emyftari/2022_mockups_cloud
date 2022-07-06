@@ -2,9 +2,11 @@ import { FC } from 'react'
 
 import styles from './Download.module.scss'
 
+import Share from 'components/Share'
 import Button, { Types } from 'components/ui/Button'
+import Icon, { Types as IconTypes } from 'components/ui/Icon'
 
-const Download: FC<any> = ({ filepath, downloadLink }) => {
+const Download: FC<any> = ({ filepath, downloadLink, url, media }) => {
   return (
     <div className={styles.download}>
       {downloadLink ? (
@@ -20,6 +22,13 @@ const Download: FC<any> = ({ filepath, downloadLink }) => {
           )}
         </>
       )}
+      <div className={styles.footer}>
+        <button>
+          <Icon type={IconTypes.heart} />
+          DONATE
+        </button>
+        <Share url={url} media={media} />
+      </div>
     </div>
   )
 }

@@ -5,16 +5,31 @@
 
   & > div:nth-of-type(1) {
     margin-bottom: 10px;
+
+    h5 {
+      letter-spacing: 0;
+    }
   }
 
   & > div:nth-of-type(2) {
     display: grid;
     grid-template-columns: repeat(auto-fit, 230px);
-    justify-content: center;
     gap: 20px;
+
+    & > a {
+      & > div {
+        height: 140px;
+      }
+    }
 
     @media screen and (max-width: $md) {
       grid-template-columns: 1fr;
+
+      & > a {
+        & > div {
+          height: 200px;
+        }
+      }
     }
   }
 }

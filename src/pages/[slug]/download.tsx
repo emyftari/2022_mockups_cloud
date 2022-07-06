@@ -26,6 +26,8 @@ const DownloadPage: FC<any> = ({ post }) => {
         filepath={post.filepath}
         downloadLink={post.download_link}
         id={post.id}
+        url={post.short_url}
+        media={post.post_images[0].preview}
       />
       <Toaster />
     </>

@@ -26,6 +26,20 @@
         background-color: rgba(255, 255, 255, 0.2);
         border-radius: 50%;
         cursor: pointer;
+
+        svg {
+          path {
+            transition: all 250ms ease-in-out;
+          }
+        }
+
+        &:hover {
+          svg {
+            path {
+              fill: #2bfeda;
+            }
+          }
+        }
       }
 
       hr {
@@ -49,6 +63,15 @@
         font-size: 12px;
         cursor: pointer;
         white-space: nowrap;
+        transition: all 250ms ease-in-out;
+
+        &:hover {
+          color: #2bfeda;
+        }
+
+        &[data-selected='true'] {
+          color: #2bfeda;
+        }
       }
     }
   }
@@ -81,16 +104,34 @@
 
     &__nav {
       ul {
-        padding: 22px 26px;
+        padding: 0 26px;
         justify-content: flex-start;
         background-color: $clr-white;
         border-bottom: 2px solid #e5e8eb;
         margin-bottom: 0;
 
         li {
-          color: $clr-black;
+          padding: 22px 0;
+          color: rgba(#000, 0.7);
           font-size: calcRem(13px);
-          font-weight: 600;
+          font-weight: 400;
+
+          &[data-selected='true'] {
+            position: relative;
+            color: $clr-black;
+            font-weight: 600;
+
+            &::before {
+              content: '\A';
+              border-style: solid;
+              border-width: 0 10px 11px 10px;
+              border-color: transparent transparent #e5e8eb transparent;
+              position: absolute;
+              bottom: 0;
+              left: 50%;
+              transform: translateX(-50%);
+            }
+          }
         }
       }
     }

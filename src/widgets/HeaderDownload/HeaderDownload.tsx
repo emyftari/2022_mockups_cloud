@@ -65,10 +65,10 @@ const Header: FC<IHeader> = ({ post: { id, title } }) => {
             <h4>WORKS THIS LINK?</h4>
             <h3>VOTE NOW</h3>
           </div>
-          <button data-active={upDown === '1'} onClick={() => vote(1)}>
+          <button disabled={upDown === '1'} onClick={() => vote(1)}>
             <Icon type={Types.arrowUp} />
           </button>
-          <button data-active={upDown === '0'} onClick={() => vote(0)}>
+          <button disabled={upDown === '0'} onClick={() => vote(0)}>
             <Icon type={Types.arrowDown} />
           </button>
           <button>

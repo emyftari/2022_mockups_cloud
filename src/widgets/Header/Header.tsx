@@ -2,7 +2,7 @@ import { FC } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { useAppDispatch } from 'app/hooks'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { setSubcategory } from 'app/features/filterSlice'
 
 import styles from './Header.module.scss'
@@ -20,6 +20,7 @@ interface IHeader {
 }
 
 const Header: FC<IHeader> = ({ subcategories }) => {
+  const subcategory = useAppSelector((state) => state.filter.subcategory)
   const dispatch = useAppDispatch()
 
   return (
@@ -49,9 +50,15 @@ const Header: FC<IHeader> = ({ subcategories }) => {
         <div className={styles.header__nav}>
           <Search />
           <ul>
-            <li onClick={() => dispatch(setSubcategory(null))}>All Mockups</li>
+            <li
+              data-selected={subcategory === -1 || subcategory === null}
+              onClick={() => dispatch(setSubcategory(null))}
+            >
+              All Mockups
+            </li>
             {subcategories.map((item: any) => (
               <li
+                data-selected={subcategory === item.id}
                 onClick={() => dispatch(setSubcategory(item.id))}
                 key={item.id}
               >
