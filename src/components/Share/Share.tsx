@@ -12,8 +12,6 @@ import styles from './Share.module.scss'
 import Icon, { Types } from 'components/ui/Icon'
 
 const Share: FC<any> = ({ url, media }) => {
-  console.log(`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${url}`)
-
   return (
     <div className={styles.share}>
       <span>
@@ -22,25 +20,27 @@ const Share: FC<any> = ({ url, media }) => {
       </span>
       <div>
         <FacebookShareButton
-          url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${url}`}
+          url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${url}/download`}
         >
           <Icon type={Types.facebook} />
         </FacebookShareButton>
         <TwitterShareButton
-          url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${url}`}
+          url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${url}/download`}
         >
           <Icon type={Types.twitter} />
         </TwitterShareButton>
         <LinkedinShareButton
-          url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${url}`}
+          url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${url}/download`}
         >
           <Icon type={Types.linkedin} />
         </LinkedinShareButton>
-        <VKShareButton url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${url}`}>
+        <VKShareButton
+          url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${url}/download`}
+        >
           <Icon type={Types.vk} />
         </VKShareButton>
         <PinterestShareButton
-          url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${url}`}
+          url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${url}/download`}
           media={media}
         >
           <Icon type={Types.pinterest} />
