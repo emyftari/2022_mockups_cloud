@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { NextSeo } from 'next-seo'
 
-import { client } from 'utils/client'
+import { getPaths, getAllPosts, getSinglePost } from 'utils/client'
 
 import HeaderDownload from 'widgets/HeaderDownload'
 import Download from 'components/Download'
@@ -37,23 +37,26 @@ const DownloadPage: FC<any> = ({ post }) => {
 export default DownloadPage
 
 export const getStaticProps = async ({ params: { slug } }: any) => {
-  const { data } = await client.get('/posts/3')
-  const post = data.data[0].filter((post: any) => post.short_url === slug)
+  const posts = await getAllPosts()
+  const post = getSinglePost(posts, slug)
+
+  if (!post)
+    return {
+      notFound: true,
+    }
 
   return {
-    props: { post: post[0] },
+    props: { post },
     revalidate: 30,
   }
 }
 
 export const getStaticPaths = async () => {
-  const { data } = await client.get('/posts/3')
-  const paths = data.data[0].map((post: any) => ({
-    params: { slug: post.short_url },
-  }))
+  const posts = await getAllPosts()
+  const paths = getPaths(posts)
 
   return {
     paths,
-    fallback: false,
+    fallback: 'blocking',
   }
 }

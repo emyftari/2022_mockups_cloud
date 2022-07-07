@@ -1,7 +1,13 @@
 import { FC, useEffect } from 'react'
 import { NextSeo } from 'next-seo'
 
-import { client } from 'utils/client'
+import {
+  getPaths,
+  getAllPosts,
+  getSinglePost,
+  getRelatedPosts,
+  getSubcategories,
+} from 'utils/client'
 
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { clearFilter } from 'app/features/filterSlice'
@@ -37,11 +43,11 @@ const Post: FC<IProps> = ({ post, subcategories, relatedPosts, posts }) => {
         }}
       />
       <HeaderPost post={post} subcategories={subcategories} />
-      <PostInfo {...post} />
+      {!subcategory && <PostInfo {...post} />}
       {subcategory === null ? (
         <RelatedPosts relatedPosts={relatedPosts} />
       ) : (
-        <Container>
+        <Container wide>
           <Posts posts={posts} />
         </Container>
       )}
@@ -52,44 +58,31 @@ const Post: FC<IProps> = ({ post, subcategories, relatedPosts, posts }) => {
 export default Post
 
 export const getStaticProps = async ({ params: { slug } }: any) => {
-  const posts = await client.get('/posts/3')
-  const res = await client.get('/categories/subcategories')
+  const posts = await getAllPosts()
+  const subcategories = await getSubcategories()
 
-  const currentPost = posts.data.data[0].filter(
-    (post: any) => post.short_url === slug
-  )
+  const post = getSinglePost(posts, slug)
+  const relatedPosts = getRelatedPosts(posts, post)
 
-  const relatedPosts = posts.data.data[0].filter(
-    (post: any) =>
-      post.subcategory.id === currentPost[0].subcategory.id &&
-      post.id !== currentPost[0].id
-  )
-
-  const subcategories = res.data.data[0].filter(
-    (item: any) => item.posts_number > 0
-  )
-
-  if (!currentPost.length)
+  if (!post)
     return {
       notFound: true,
     }
 
   return {
     props: {
+      post,
+      posts,
       relatedPosts,
       subcategories,
-      post: currentPost[0],
-      posts: posts.data.data[0],
     },
     revalidate: 30,
   }
 }
 
 export const getStaticPaths = async () => {
-  const { data } = await client.get('/posts/3')
-  const paths = data.data[0].map((post: any) => ({
-    params: { slug: post.short_url },
-  }))
+  const posts = await getAllPosts()
+  const paths = getPaths(posts)
 
   return {
     paths,

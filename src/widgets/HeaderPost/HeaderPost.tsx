@@ -22,9 +22,15 @@ const Header: FC<IHeader> = ({ post, subcategories }) => {
   const subcategory = useAppSelector((state) => state.filter.subcategory)
 
   return (
-    <header className={clsx(styles.header, styles.header__post)}>
+    <header
+      className={clsx(styles.header)}
+      style={subcategory ? { paddingBlock: '1rem 1rem' } : {}}
+    >
       <Container wide>
-        <div className={styles.header__top}>
+        <div
+          className={styles.header__top}
+          style={subcategory ? { marginBottom: 0 } : {}}
+        >
           <Link href="/">
             <div>
               <Icon type={Types.logo} />
@@ -65,7 +71,7 @@ const Header: FC<IHeader> = ({ post, subcategories }) => {
           </div>
         </div>
       </Container>
-      <Single post={post} />
+      {!subcategory && <Single post={post} />}
     </header>
   )
 }

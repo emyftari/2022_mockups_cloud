@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import { NextSeo } from 'next-seo'
 
-import { client } from 'utils/client'
+import { getAllPosts, getSubcategories } from 'utils/client'
 
 import { IProps } from 'interfaces/props'
 
@@ -29,17 +29,13 @@ const Home: NextPage<IProps> = ({ posts, subcategories }) => {
 }
 
 export const getStaticProps = async () => {
-  const posts = await client.get('/posts/3')
-  const res = await client.get('/categories/subcategories')
-
-  const subcategories = res.data.data[0].filter(
-    (item: any) => item.posts_number > 0
-  )
+  const posts = await getAllPosts()
+  const subcategories = await getSubcategories()
 
   return {
     props: {
+      posts,
       subcategories,
-      posts: posts.data.data[0],
     },
     revalidate: 30,
   }
