@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const client = axios.create({
+export const client = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API,
 })
 
@@ -16,6 +16,19 @@ export const getSubcategories = async () => {
   )
   return res.data.data[0]
 }
+
+export const votePost = async (id: number, vote: 1 | 0) =>
+  await client.post(`/posts/${id}/vote`, {
+    vote,
+    domain: process.env.NEXT_PUBLIC_DOMAIN_ID,
+  })
+
+export const reportPost = async (id: number, reason: string) =>
+  await client.post(`/reports/${id}/report`, {
+    reason,
+    domain: process.env.NEXT_PUBLIC_DOMAIN_ID,
+    details: 'Details empty',
+  })
 
 // FILTERS
 export const getSinglePost = (posts: any, slug: string) =>

@@ -8,7 +8,7 @@ import {
   CookieValueTypes,
 } from 'cookies-next'
 
-import { client } from 'utils/client'
+import { votePost } from 'utils/client'
 
 import styles from './HeaderDownload.module.scss'
 
@@ -25,9 +25,10 @@ interface IHeader {
 const Header: FC<IHeader> = ({ post: { id, title } }) => {
   const [revealShare, setRevealShare] = useState(false)
   const [upDown, setUpDown] = useState<0 | 1 | null | CookieValueTypes>(null)
+
   const vote = async (vote: 1 | 0) => {
     try {
-      await client.post(`/posts/${id}/vote`, { vote, domain: 4 })
+      await votePost(id, vote)
       setUpDown(vote)
       setCookies(`post-${id}`, id)
       setCookies(`vote-${id}`, vote)

@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import toast from 'react-hot-toast'
 
-import { client } from 'utils/client'
+import { reportPost } from 'utils/client'
 
 import styles from './Report.module.scss'
 
@@ -15,11 +15,7 @@ const Report: FC<any> = ({ close, id }) => {
 
   const handleSubmit = async () => {
     try {
-      await client.post(`/reports/${id}/report`, {
-        reason,
-        domain: 3,
-        details: 'Details empty',
-      })
+      await reportPost(id, reason)
       toast.success('Post reported succesfully!')
       close()
     } catch (error: any) {
