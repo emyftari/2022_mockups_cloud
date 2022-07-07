@@ -95,6 +95,30 @@
   }
 }
 
+.share {
+  position: relative;
+
+  & > div {
+    background-color: #021e3c;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 70px;
+    z-index: 1;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    transition: all 250ms ease-in-out;
+  }
+
+  &:hover {
+    & > div {
+      height: 200px;
+    }
+  }
+}
+
 @media screen and (max-width: $lg) {
   .header {
     &__right {

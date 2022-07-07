@@ -7,6 +7,13 @@ import {
   checkCookies,
   CookieValueTypes,
 } from 'cookies-next'
+import {
+  FacebookShareButton,
+  PinterestShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  VKShareButton,
+} from 'next-share'
 
 import { votePost } from 'utils/client'
 
@@ -22,8 +29,7 @@ interface IHeader {
   subcategories?: any
 }
 
-const Header: FC<IHeader> = ({ post: { id, title } }) => {
-  const [revealShare, setRevealShare] = useState(false)
+const Header: FC<IHeader> = ({ post: { id, title, url, post_images } }) => {
   const [upDown, setUpDown] = useState<0 | 1 | null | CookieValueTypes>(null)
 
   const vote = async (vote: 1 | 0) => {
@@ -72,9 +78,37 @@ const Header: FC<IHeader> = ({ post: { id, title } }) => {
           <button disabled={upDown === '0'} onClick={() => vote(0)}>
             <Icon type={Types.arrowDown} />
           </button>
-          <button>
+          <button className={styles.share}>
             <Icon type={Types.share} />
             SHARE
+            <div>
+              <FacebookShareButton
+                url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${url}/download`}
+              >
+                <Icon type={Types.facebook} />
+              </FacebookShareButton>
+              <TwitterShareButton
+                url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${url}/download`}
+              >
+                <Icon type={Types.twitter} />
+              </TwitterShareButton>
+              <LinkedinShareButton
+                url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${url}/download`}
+              >
+                <Icon type={Types.linkedin} />
+              </LinkedinShareButton>
+              <VKShareButton
+                url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${url}/download`}
+              >
+                <Icon type={Types.vk} />
+              </VKShareButton>
+              <PinterestShareButton
+                url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${url}/download`}
+                media={post_images[0].preview}
+              >
+                <Icon type={Types.pinterest} />
+              </PinterestShareButton>
+            </div>
           </button>
           <button>
             <Icon type={Types.heart} />
