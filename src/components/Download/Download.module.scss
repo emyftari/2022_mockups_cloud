@@ -1,4 +1,5 @@
 @import '../../styles/mixins.scss';
+@import '../../styles/variables.scss';
 
 .download {
   position: relative;
@@ -26,24 +27,30 @@
 }
 
 .footer {
-  @include flex(0, space-between, center);
-  position: absolute;
-  width: 100%;
-  height: 60px;
-  bottom: 0;
-  background-color: #fff;
-  border-top: 1px solid rgba(#000, 0.1);
+  display: none;
+}
 
-  & > button {
-    @include flex(0, center, center, 6px);
-    height: 100%;
-    padding: 0 1rem;
-    font-weight: 500;
-    border-right: 1px solid rgba(#000, 0.1);
+@media screen and (max-width: $lg) {
+  .footer {
+    @include flex(0, space-between, center);
+    position: absolute;
+    width: 100%;
+    height: 60px;
+    bottom: 0;
+    background-color: #fff;
+    border-top: 1px solid rgba(#000, 0.1);
 
-    svg {
-      path {
-        fill: #000;
+    & > button {
+      @include flex(0, center, center, 6px);
+      height: 100%;
+      padding: 0 1rem;
+      font-weight: 500;
+      border-right: 1px solid rgba(#000, 0.1);
+
+      svg {
+        path {
+          fill: #000;
+        }
       }
     }
   }
