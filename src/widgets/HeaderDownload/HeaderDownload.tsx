@@ -29,7 +29,9 @@ interface IHeader {
   subcategories?: any
 }
 
-const Header: FC<IHeader> = ({ post: { id, title, url, post_images } }) => {
+const Header: FC<IHeader> = ({
+  post: { id, title, short_url, post_images },
+}) => {
   const [upDown, setUpDown] = useState<0 | 1 | null | CookieValueTypes>(null)
 
   const vote = async (vote: 1 | 0) => {
@@ -83,27 +85,27 @@ const Header: FC<IHeader> = ({ post: { id, title, url, post_images } }) => {
             SHARE
             <div>
               <FacebookShareButton
-                url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${url}/download`}
+                url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${short_url}/download`}
               >
                 <Icon type={Types.facebook} />
               </FacebookShareButton>
               <TwitterShareButton
-                url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${url}/download`}
+                url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${short_url}/download`}
               >
                 <Icon type={Types.twitter} />
               </TwitterShareButton>
               <LinkedinShareButton
-                url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${url}/download`}
+                url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${short_url}/download`}
               >
                 <Icon type={Types.linkedin} />
               </LinkedinShareButton>
               <VKShareButton
-                url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${url}/download`}
+                url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${short_url}/download`}
               >
                 <Icon type={Types.vk} />
               </VKShareButton>
               <PinterestShareButton
-                url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${url}/download`}
+                url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${short_url}/download`}
                 media={post_images[0].preview}
               >
                 <Icon type={Types.pinterest} />
