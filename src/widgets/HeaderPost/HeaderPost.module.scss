@@ -35,6 +35,20 @@
         background-color: rgba(255, 255, 255, 0.2);
         border-radius: 50%;
         cursor: pointer;
+
+        svg {
+          path {
+            transition: all 250ms ease-in-out;
+          }
+        }
+
+        &:hover {
+          svg {
+            path {
+              fill: #2bfeda;
+            }
+          }
+        }
       }
 
       hr {

@@ -59,12 +59,24 @@ const Header: FC<IHeader> = ({ post, subcategories }) => {
             <h5>Donate</h5>
             <hr />
             <h5>Follow Us</h5>
-            <span>
-              <Icon type={Types.fb} />
-            </span>
-            <span>
-              <Icon type={Types.ig} />
-            </span>
+            <a
+              href="https://www.facebook.com/mockups.cloud"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>
+                <Icon type={Types.fb} />
+              </span>
+            </a>
+            <a
+              href="https://www.instagram.com/mockups.cloud"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>
+                <Icon type={Types.ig} />
+              </span>
+            </a>
             <Button type={ButtonTypes.circle}>
               <Icon type={Types.plus} />
             </Button>
