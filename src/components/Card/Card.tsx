@@ -18,7 +18,7 @@ const Card: FC<ICard> = ({ title, post_images, short_url, height }) => {
     <Link href={`/${short_url}`}>
       <a className={styles.card}>
         <div className={styles.card__image} style={{ height }}>
-          <CustomImage src={post_images} alt="" layout="fill" />
+          <CustomImage src={post_images[0]} alt="" layout="fill" />
         </div>
         <h3>{title}</h3>
       </a>

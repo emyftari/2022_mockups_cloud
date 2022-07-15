@@ -14,6 +14,7 @@ import { client } from 'utils/client'
 import styles from './Single.module.scss'
 
 import Container from 'components/ui/Container'
+import Slider from 'components/Slider'
 import CustomImage from 'components/ui/CustomImage'
 import Button from 'components/ui/Button'
 import Icon, { Types } from 'components/ui/Icon'
@@ -27,7 +28,11 @@ const Single: FC<any> = ({ post }) => {
     <Container>
       <div className={styles.post}>
         <div className={styles.post__image}>
-          <CustomImage layout="fill" src={post.post_images} alt="" />
+          {post.post_images !== null && post.post_images.length > 1 ? (
+            <Slider images={post.post_images} />
+          ) : (
+            <CustomImage layout="fill" src={post.post_images} alt="" />
+          )}
         </div>
         <div className={styles.post__info}>
           <div className={styles.post__info__app}>

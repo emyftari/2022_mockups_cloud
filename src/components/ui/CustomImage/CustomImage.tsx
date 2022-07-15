@@ -31,7 +31,7 @@ const CustomImage: FC<Props> = ({
           onClick={onClick}
           className={loading ? styles.hide : styles.show}
           onLoadingComplete={() => setLoading(false)}
-          src={src ? src[0].preview : '/images/placeholder.webp'}
+          src={src ? src.preview : '/images/placeholder.webp'}
           alt={alt}
           priority={priority}
           layout="fill"
@@ -43,7 +43,7 @@ const CustomImage: FC<Props> = ({
           onClick={onClick}
           className={loading ? styles.hide : styles.show}
           onLoadingComplete={() => setLoading(false)}
-          src={src ? src[0].preview : '/images/placeholder.webp'}
+          src={src ? src.preview : '/images/placeholder.webp'}
           alt={alt}
           width={width}
           height={height}

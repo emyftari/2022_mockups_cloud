@@ -60,3 +60,19 @@ button {
   border: 0;
   outline: 0;
 }
+
+.swiper-pagination {
+  position: absolute !important;
+  bottom: 1rem !important;
+}
+
+.swiper-pagination-bullet {
+  background-color: rgba(#fff, 1) !important;
+  width: 10px !important;
+  height: 10px !important;
+}
+
+.swiper-pagination-bullet-active {
+  border: 2px solid #fff !important;
+  background-color: transparent !important;
+}
