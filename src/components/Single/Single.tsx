@@ -31,7 +31,7 @@ const Single: FC<any> = ({ post }) => {
           {post.post_images !== null && post.post_images.length > 1 ? (
             <Slider images={post.post_images} />
           ) : (
-            <CustomImage layout="fill" src={post.post_images} alt="" />
+            <CustomImage layout="fill" src={post.post_images[0]} alt="" />
           )}
         </div>
         <div className={styles.post__info}>

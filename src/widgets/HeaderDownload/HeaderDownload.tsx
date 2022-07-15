@@ -88,27 +88,32 @@ const Header: FC<IHeader> = ({
                 url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${short_url}/download`}
               >
                 <Icon type={Types.facebook} />
+                <span>Facebook</span>
               </FacebookShareButton>
               <TwitterShareButton
                 url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${short_url}/download`}
               >
                 <Icon type={Types.twitter} />
+                Twitter
               </TwitterShareButton>
               <LinkedinShareButton
                 url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${short_url}/download`}
               >
                 <Icon type={Types.linkedin} />
+                LinkedIn
               </LinkedinShareButton>
               <VKShareButton
                 url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${short_url}/download`}
               >
                 <Icon type={Types.vk} />
+                Vkontakte
               </VKShareButton>
               <PinterestShareButton
                 url={`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/${short_url}/download`}
                 media={post_images[0].preview}
               >
                 <Icon type={Types.pinterest} />
+                Pinterest
               </PinterestShareButton>
             </div>
           </button>

@@ -3,9 +3,12 @@
 @import '../../styles/mixins.scss';
 
 .header {
+  position: relative;
   height: 70px;
   background-color: #021e3c;
   color: #fff;
+  padding-left: 1rem;
+  z-index: 10;
 
   &__container {
     @include flex(0, 0, center, 2rem);
@@ -51,7 +54,7 @@
       }
     }
 
-    button {
+    & > button {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -99,22 +102,30 @@
   position: relative;
 
   & > div {
-    background-color: #021e3c;
-    display: grid;
-    align-items: center;
-    justify-content: center;
+    background-color: #032244;
     position: absolute;
     top: 70px;
-    z-index: 1;
-    width: 100%;
+    width: 150px;
+    transition: all 250ms ease-in-out;
     height: 0;
     overflow: hidden;
-    transition: all 250ms ease-in-out;
+    display: grid;
+    place-content: center;
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      &:not(:last-of-type) {
+        margin-bottom: 10px;
+      }
+    }
   }
 
   &:hover {
     & > div {
-      height: 200px;
+      height: 220px;
     }
   }
 }

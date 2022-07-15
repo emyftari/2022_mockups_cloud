@@ -18,6 +18,15 @@
       align-items: center;
       gap: 0.5rem;
 
+      h5:first-of-type {
+        transition: all 150ms ease-in-out;
+
+        &:hover {
+          color: #2bfeda;
+          cursor: pointer;
+        }
+      }
+
       span {
         display: grid;
         place-items: center;
